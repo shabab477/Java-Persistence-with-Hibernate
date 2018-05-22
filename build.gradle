@@ -1,0 +1,77 @@
+apply plugin: 'war'
+apply plugin: 'com.bmuschko.tomcat'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+version = '1.0'
+
+tomcat {
+    httpPort = 8090
+    httpsPort = 8091
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
+    compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+
+    compile "org.springframework:spring-webmvc:$springVersion"
+    compile "org.springframework:spring-jdbc:$springVersion"
+    compile "org.springframework:spring-context:$springVersion"
+    compile "org.springframework:spring-orm:$springVersion"
+    testCompile "org.springframework:spring-test:$springVersion"
+
+    compile "javax.servlet:jstl:$jstlVersion"
+    providedCompile "javax.servlet:javax.servlet-api:$servletApiVersion"
+    providedCompile "javax.servlet.jsp:jsp-api:$jspApiVersion"
+    providedCompile "javax.el:javax.el-api:$jspElVersion"
+
+    compile "org.hibernate:hibernate-entitymanager:$hibernateEntityManagerVersion"
+    compile "org.hibernate:hibernate-validator:$hibernateValidatorVersion"
+    compile "org.hibernate:hibernate-core:$hibernateEntityManagerVersion"
+    compile "com.h2database:h2:$h2Version"
+    runtime group: 'mysql', name: 'mysql-connector-java', version: '8.0.9-rc'
+
+    compile "javax.inject:javax.inject:1"
+
+    compile "opensymphony:sitemesh:$sitemeshVersion"
+
+    testCompile "junit:junit-dep:$junitVersion"
+    testCompile "org.mockito:mockito-core:$mockitoVersion"
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+repositories {
+    maven { url 'http://maven.springframework.org/release' }
+    maven { url 'http://maven.springframework.org/milestone' }
+    maven { url 'http://maven.springframework.org/snapshot' }
+    maven { url 'http://download.java.net/maven/2' }
+    mavenCentral()
+}
+
+dependencies {
+    def tomcatVersion = '7.0.65'
+
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+}
+
+
+buildscript {
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.2'
+    }
+}
+
+war {
+    archiveName 'MealPlanner.war'
+}
