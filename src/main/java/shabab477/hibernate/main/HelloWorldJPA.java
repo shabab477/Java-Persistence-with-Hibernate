@@ -1,5 +1,7 @@
 package shabab477.hibernate.main;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import shabab477.hibernate.domain.Message;
 
 import javax.persistence.EntityManager;
@@ -22,12 +24,11 @@ public class HelloWorldJPA {
         transaction.begin();
 
         Message message = new Message();
-        message.setText("Hello World");
+        message.setText("Hello Dhaka");
         entityManager.persist(message);
 
         transaction.commit();
 
         entityManager.close();
-
     }
 }
